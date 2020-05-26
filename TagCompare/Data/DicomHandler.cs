@@ -186,42 +186,49 @@ namespace TagCompare.Data
         {
             var dataTable = ReadTags();
             var hashTable = new Hashtable(20);
-            int num1 = 0, startFlag = 0, endFlag = 0;
-            for (int i = 0; i < dataTable.Rows.Count; i++)
+            var cursor = 0;
+            
+            //计算文件夹的开始行和结束行
+            int startRowNum = 0, endRowNum = 0;
+            for (var i = 0; i < dataTable.Rows.Count; i++)
             {
-                int num4 = num1;
+                var preCursor = cursor;
                 if (dataTable.Rows[i]["VR"].ToString().Equals("SQ")
                     || dataTable.Rows[i]["Group_Element"].ToString().Equals("(FFFE,E000)"))
                 {
-                    num1++;
+                    cursor++;
                 }
                 else if (dataTable.Rows[i]["Group_Element"].ToString().Equals("(FFFE,E00D)")
                          || dataTable.Rows[i]["Group_Element"].ToString().Equals("(FFFE,E0DD)"))
                 {
-                    num1--;
+                    cursor--;
                 }
 
-                if (num4 == 0 && num1 == 1)
+                if (preCursor == 0 && cursor == 1)
                 {
-                    startFlag = i;
+                    startRowNum = i;
                 }
-                else if (num4 == 1 && num1 == 0)
+                else if (preCursor == 1 && cursor == 0)
                 {
-                    endFlag = i;
+                    endRowNum = i;
                 }
 
-                if (startFlag != 0 && endFlag != 0)
+                if (startRowNum != 0 && endRowNum != 0)
                 {
-                    hashTable.Add(startFlag, endFlag);
-                    startFlag = 0;
-                    endFlag = 0;
+                    hashTable.Add(startRowNum, endRowNum);
+                    startRowNum = 0;
+                    endRowNum = 0;
                 }
             }
 
             return hashTable;
         }
 
-        public DataTable GetTagDataTable()
+        /// <summary>
+        /// 生成Tag的DataGrid
+        /// </summary>
+        /// <returns></returns>
+        public DataTable GenerateTagDataTable()
         {
             if (_isExplicitVr)
             {
@@ -268,6 +275,10 @@ namespace TagCompare.Data
             }
         }
 
+        /// <summary>
+        /// 判断Tag是否为0002的Group
+        /// </summary>
+        /// <returns></returns>
         private bool IsGroup0002()
         {
             try
@@ -289,6 +300,10 @@ namespace TagCompare.Data
             return false;
         }
 
+        /// <summary>
+        /// 处理FFFE的文件夹起始Group
+        /// </summary>
+        /// <param name="dr"></param>
         private void HandleGroupFFFE( DataRow dr)
         {
             try
@@ -308,6 +323,10 @@ namespace TagCompare.Data
             }
         }
 
+        /// <summary>
+        /// 设定Transfer Syntax
+        /// </summary>
+        /// <param name="transferSyntaxUid"></param>
         private void SetTransferSyntax(string transferSyntaxUid)
         {
             if (string.IsNullOrEmpty(transferSyntaxUid))
@@ -315,29 +334,29 @@ namespace TagCompare.Data
                 return;
             }
 
-            if (transferSyntaxUid == "1.2.840.10008.1.2.1\0" == false)
+            switch (transferSyntaxUid)
             {
-                if (transferSyntaxUid == "1.2.840.10008.1.2\0" == false)
-                {
-                    if (transferSyntaxUid == "1.2.840.10008.1.2.2\0")
-                    {
-                        _isExplicitVr = true;
-                        _isLittleEndian = false;
-                    }
-                }
-                else
-                {
+                case "1.2.840.10008.1.2.1\0":
+                    _isExplicitVr = true;
+                    _isLittleEndian = true;
+                    return;
+                case "1.2.840.10008.1.2\0":
                     _isExplicitVr = false;
                     _isLittleEndian = true;
-                }
-            }
-            else
-            {
-                _isExplicitVr = true;
-                _isLittleEndian = true;
+                    return;
+                case "1.2.840.10008.1.2.2\0":
+                    _isExplicitVr = true;
+                    _isLittleEndian = false;
+                    return;
+                default:
+                    return;
             }
         }
 
+        /// <summary>
+        /// 获取Tag显示值，Group Element
+        /// </summary>
+        /// <returns></returns>
         private string GetGE()
         {
             try
@@ -354,6 +373,10 @@ namespace TagCompare.Data
             }
         }
 
+        /// <summary>
+        /// 获取Tag的描述信息
+        /// </summary>
+        /// <returns></returns>
         private string GetTagDes()
         {
             try
@@ -372,6 +395,10 @@ namespace TagCompare.Data
             }
         }
 
+        /// <summary>
+        /// 获取VR类型
+        /// </summary>
+        /// <returns></returns>
         private string GetVR()
         {
             try
@@ -390,6 +417,10 @@ namespace TagCompare.Data
             }
         }
 
+        /// <summary>
+        /// 获取Tag占用的Length
+        /// </summary>
+        /// <returns></returns>
         private int GetLength()
         {
             try
@@ -415,6 +446,10 @@ namespace TagCompare.Data
             }
         }
 
+        /// <summary>
+        /// 获取Group为0002的Tag占用的Length
+        /// </summary>
+        /// <returns></returns>
         private int GetLength0002()
         {
             try
@@ -435,6 +470,10 @@ namespace TagCompare.Data
             }
         }
 
+        /// <summary>
+        /// 获取Tag的Value值
+        /// </summary>
+        /// <returns></returns>
         private string GetValue()
         {
             try

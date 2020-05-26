@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TagCompare"
         mc:Ignorable="d"
-        Title="MainWindow" Height="800" Width="1000" WindowStartupLocation="CenterScreen">
+        Title="MainWindow" Height="800" Width="1000" WindowStartupLocation="CenterScreen" WindowState="Maximized">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="39"></RowDefinition>

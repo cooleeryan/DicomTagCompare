@@ -77,29 +77,80 @@ namespace TagCompare.Dict
         public const int UK = 0x554B;
         public const int RT = 0x5254;
 
+        
+        //public static int ValueOf(string str)
+        //{
+        //    if ("NONE".Equals(str))
+        //    {
+        //        return (int)VR.NONE;
+        //    }
 
+        //    if (str.Length != 2)
+        //    {
+        //        throw new ArgumentException(str);
+        //    }
+
+        //    return ((str[0] & 0xff) << 8) | (str[1] & 0xff);
+        //}
+
+        
+        //public static byte GetPadding(int vr)
+        //{
+        //    switch (vr)
+        //    {
+        //        case (int)VR.AE:
+        //        case (int)VR.AS:
+        //        case (int)VR.CS:
+        //        case (int)VR.DA:
+        //        case (int)VR.DS:
+        //        case (int)VR.DT:
+        //        case (int)VR.IS:
+        //        case (int)VR.LO:
+        //        case (int)VR.LT:
+        //        case (int)VR.PN:
+        //        case (int)VR.SH:
+        //        case (int)VR.SL:
+        //        case (int)VR.ST:
+        //        case (int)VR.TM:
+        //        case (int)VR.UT:
+        //            return (byte)' ';
+
+        //        default:
+        //            return 0;
+        //    }
+        //}
+
+        
+        //public static bool IsEncodedStringValue(int vr)
+        //{
+        //    switch (vr)
+        //    {
+        //        case (int)VR.LO:
+        //        case (int)VR.LT:
+        //        case (int)VR.PN:
+        //        case (int)VR.SH:
+        //        case (int)VR.ST:
+        //        case (int)VR.UT:
+        //            return true;
+        //        default:
+        //            return false;
+        //    }
+        //}
+
+
+        /// <summary>
+        /// 获取vr的字符串显示
+        /// </summary>
+        /// <param name="vr"></param>
+        /// <returns></returns>
         public static string ToString(int vr)
         {
             return vr == (int) VR.NONE ? "NONE" : new string(new[] {(char) (vr >> 8), (char) (vr & 0x00ff)});
         }
 
-        public static int ValueOf(string str)
-        {
-            if ("NONE".Equals(str))
-            {
-                return (int)VR.NONE;
-            }
-
-            if (str.Length != 2)
-            {
-                throw new ArgumentException(str);
-            }
-
-            return ((str[0] & 0xff) << 8) | (str[1] & 0xff);
-        }
-
         /// <summary>
         /// These VRs have 2 bytes fixed length
+        /// 判断vr的Length是否为16位
         /// </summary>
         /// <param name="vr"></param>
         /// <returns></returns>
@@ -137,34 +188,9 @@ namespace TagCompare.Dict
             }
         }
 
-        public static byte GetPadding(int vr)
-        {
-            switch (vr)
-            {
-                case (int)VR.AE:
-                case (int)VR.AS:
-                case (int)VR.CS:
-                case (int)VR.DA:
-                case (int)VR.DS:
-                case (int)VR.DT:
-                case (int)VR.IS:
-                case (int)VR.LO:
-                case (int)VR.LT:
-                case (int)VR.PN:
-                case (int)VR.SH:
-                case (int)VR.SL:
-                case (int)VR.ST:
-                case (int)VR.TM:
-                case (int)VR.UT:
-                    return (byte)' ';
-
-                default:
-                    return 0;
-            }
-        }
-
         /// <summary>
         /// These VRs are string values
+        /// 判断vr是否为字符串值
         /// </summary>
         /// <param name="vr"></param>
         /// <returns></returns>
@@ -193,24 +219,9 @@ namespace TagCompare.Dict
             }
         }
 
-        public static bool IsEncodedStringValue(int vr)
-        {
-            switch (vr)
-            {
-                case (int)VR.LO:
-                case (int)VR.LT:
-                case (int)VR.PN:
-                case (int)VR.SH:
-                case (int)VR.ST:
-                case (int)VR.UT:
-                    return true;
-                default:
-                    return false;
-            }
-        }
-
         /// <summary>
         /// Get the VR of this tag
+        /// 根据tag值获取vr值
         /// </summary>
         /// <param name="tag">the tag</param>
         /// <returns></returns>

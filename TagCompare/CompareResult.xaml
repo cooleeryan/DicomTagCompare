@@ -7,10 +7,10 @@
         mc:Ignorable="d"
         Title="CompareResult" Height="600" Width="1000">
     <Grid>
-        <DataGrid Name="DgResult" AutoGenerateColumns="False" IsReadOnly="True" CanUserResizeRows="False">
+        <DataGrid Name="DgResult" AutoGenerateColumns="False" IsReadOnly="True" CanUserResizeRows="False" LoadingRow="DgResult_OnLoadingRow">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Group Element" Binding="{Binding Path=Group_Element}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Tag Description" Binding="{Binding Path=Tag_Des}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Tag Description" Binding="{Binding Path=TagDes}"></DataGridTextColumn>
                 <DataGridTextColumn Header="VR Left" Binding="{Binding Path=VR_Left}"></DataGridTextColumn>
                 <DataGridTextColumn Header="VR Right" Binding="{Binding Path=VR_Right}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Length Left" Binding="{Binding Path=Length_Left}"></DataGridTextColumn>

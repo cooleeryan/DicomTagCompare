@@ -31,10 +31,14 @@ namespace TagCompare
 
         public MainWindow()
         {
-            this.WindowState = WindowState.Maximized;
             InitializeComponent();
         }
 
+        /// <summary>
+        /// 左侧打开文件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BtnOpenLeft_Click(object sender, RoutedEventArgs e)
         {
             var dlg = new OpenFileDialog
@@ -49,6 +53,11 @@ namespace TagCompare
             ShowResult(true);
         }
 
+        /// <summary>
+        /// 右侧打开文件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BtnOpenRight_Click(object sender, RoutedEventArgs e)
         {
             var dlg = new OpenFileDialog
@@ -63,6 +72,11 @@ namespace TagCompare
             ShowResult(false);
         }
 
+        /// <summary>
+        /// 左侧路径回车
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void TxtLeft_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key != Key.Return)
@@ -74,6 +88,11 @@ namespace TagCompare
             ShowResult(true);
         }
 
+        /// <summary>
+        /// 右侧路径回车
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void TxtRight_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key != Key.Return)
@@ -82,9 +101,14 @@ namespace TagCompare
             }
 
             _fileName = TxtRight.Text.Trim();
-            ShowResult(true);
+            ShowResult(false);
         }
 
+        /// <summary>
+        /// 比较两个文件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BtnCompare_Click(object sender, RoutedEventArgs e)
         {
             if (_dtLeft == null || _dtRight == null)
@@ -98,6 +122,11 @@ namespace TagCompare
             }
         }
 
+        /// <summary>
+        /// 左侧拖拽文件到Grid
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void DgLeft_Drop(object sender, DragEventArgs e)
         {
             if (e.Data.GetData(DataFormats.FileDrop) is Array data)
@@ -110,6 +139,11 @@ namespace TagCompare
             }
         }
 
+        /// <summary>
+        /// 右侧拖拽文件到Grid
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void DgRight_Drop(object sender, DragEventArgs e)
         {
             if (e.Data.GetData(DataFormats.FileDrop) is Array data)
@@ -122,16 +156,30 @@ namespace TagCompare
             }
         }
 
+        /// <summary>
+        /// 左侧行号
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void DgLeft_LoadingRow(object sender, DataGridRowEventArgs e)
         {
             e.Row.Header = e.Row.GetIndex() + 1;
         }
 
+        /// <summary>
+        /// 右侧行号
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void DgRight_LoadingRow(object sender, DataGridRowEventArgs e)
         {
             e.Row.Header = e.Row.GetIndex() + 1;
         }
 
+        /// <summary>
+        /// 显示Tag信息
+        /// </summary>
+        /// <param name="isLeft"></param>
         private void ShowResult(bool isLeft)
         {
             try
@@ -155,13 +203,13 @@ namespace TagCompare
 
                 if (isLeft)
                 {
-                    _dtLeft = _dh.GetTagDataTable();
+                    _dtLeft = _dh.GenerateTagDataTable();
                     TxtLeft.Text = _fileName;
                     DgLeft.ItemsSource = _dtLeft.DefaultView;
                 }
                 else
                 {
-                    _dtRight = _dh.GetTagDataTable();
+                    _dtRight = _dh.GenerateTagDataTable();
                     TxtRight.Text = _fileName;
                     DgRight.ItemsSource = _dtRight.DefaultView;
                 }
@@ -180,6 +228,10 @@ namespace TagCompare
             }
         }
 
+        /// <summary>
+        /// 比较Tag差异
+        /// </summary>
+        /// <returns></returns>
         private DataTable CompareResult()
         {
             var dataTable = new DataTable();
@@ -198,27 +250,27 @@ namespace TagCompare
                 {
                     for (int j = 0; j < _dtRight.Rows.Count; j++)
                     {
-                        var ge_left = _dtLeft.Rows[i]["Group_Element"].ToString();
+                        var geLeft = _dtLeft.Rows[i]["Group_Element"].ToString();
                         var tagDes = _dtLeft.Rows[i]["TagDes"].ToString();
-                        var vr_left = _dtLeft.Rows[i]["VR"].ToString();
-                        var length_left = _dtLeft.Rows[i]["Length"].ToString();
-                        var value_left = _dtLeft.Rows[i]["Value"].ToString();
-                        var ge_right = _dtRight.Rows[j]["Group_Element"].ToString();
-                        var vr_right = _dtRight.Rows[j]["VR"].ToString();
-                        var length_right = _dtRight.Rows[j]["Length"].ToString();
-                        var value_right = _dtRight.Rows[j]["Value"].ToString();
+                        var vrLeft = _dtLeft.Rows[i]["VR"].ToString();
+                        var lengthLeft = _dtLeft.Rows[i]["Length"].ToString();
+                        var valueLeft = _dtLeft.Rows[i]["Value"].ToString();
+                        var geRight = _dtRight.Rows[j]["Group_Element"].ToString();
+                        var vrRight = _dtRight.Rows[j]["VR"].ToString();
+                        var lengthRight = _dtRight.Rows[j]["Length"].ToString();
+                        var valueRight = _dtRight.Rows[j]["Value"].ToString();
 
-                        if (ge_left == ge_right && (vr_left != vr_right || length_left != length_right || value_left != value_right))
+                        if (geLeft == geRight && (vrLeft != vrRight || lengthLeft != lengthRight || valueLeft != valueRight))
                         {
                             var row = dataTable.NewRow();
-                            row["Group_Element"] = ge_left;
+                            row["Group_Element"] = geLeft;
                             row["TagDes"] = tagDes;
-                            row["VR_Left"] = vr_left;
-                            row["VR_Right"] = vr_right;
-                            row["Length_Left"] = length_left;
-                            row["Length_Right"] = length_right;
-                            row["Value_Left"] = value_left;
-                            row["Value_Right"] = value_right;
+                            row["VR_Left"] = vrLeft;
+                            row["VR_Right"] = vrRight;
+                            row["Length_Left"] = lengthLeft;
+                            row["Length_Right"] = lengthRight;
+                            row["Value_Left"] = valueLeft;
+                            row["Value_Right"] = valueRight;
                             dataTable.Rows.Add(row);
                         }
                     }

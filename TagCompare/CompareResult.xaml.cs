@@ -23,5 +23,15 @@ namespace TagCompare
         {
             InitializeComponent();
         }
+
+        /// <summary>
+        /// 对比窗口行号
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void DgResult_OnLoadingRow(object sender, DataGridRowEventArgs e)
+        {
+            e.Row.Header = e.Row.GetIndex() + 1;
+        }
     }
 }

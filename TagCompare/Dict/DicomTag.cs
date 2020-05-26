@@ -7780,16 +7780,52 @@ namespace TagCompare.Dict
             }
         }
 
+		
+        //public static uint GetTag(string name)
+        //{
+        //    try
+        //    {
+        //        var fieldInfo = typeof(DicomTag).GetField(name, BindingFlags.Static | BindingFlags.Public);
+        //        if (fieldInfo != null)
+        //        {
+        //            return (uint) fieldInfo.GetValue(null);
+        //        }
+        //    }
+        //    catch (Exception)
+        //    {
+        //        throw new ArgumentException("Unknown Tag Name: " + name);
+        //    }
+
+        //    return 0;
+        //}
+
+
+		/// <summary>
+		/// 判断是否为私有Tag
+		/// </summary>
+		/// <param name="tag"></param>
+		/// <returns></returns>
         public static bool IsPrivate(uint tag)
         {
             return (tag & 0x00010000) != 0;
         }
 
+		/// <summary>
+		/// buffer读取Tag
+		/// </summary>
+		/// <param name="grTag"></param>
+		/// <param name="elTag"></param>
+		/// <returns></returns>
         public static uint ValueOf(ushort grTag, ushort elTag)
         {
             return (uint) (grTag << 16 | elTag & ushort.MaxValue);
         }
 
+		/// <summary>
+		/// 根据Tag获取Tag描述信息
+		/// </summary>
+		/// <param name="tag"></param>
+		/// <returns></returns>
         public static string GetName(uint tag)
         {
             if (IsPrivate(tag))
@@ -7810,24 +7846,11 @@ namespace TagCompare.Dict
 			throw new ArgumentException("Unknow Tag: " + ToHexString(tag));
         }
 
-        public static uint GetTag(string name)
-        {
-            try
-            {
-                var fieldInfo = typeof(DicomTag).GetField(name, BindingFlags.Static | BindingFlags.Public);
-                if (fieldInfo != null)
-                {
-                    return (uint) fieldInfo.GetValue(null);
-                }
-            }
-            catch (Exception)
-            {
-                throw new ArgumentException("Unknown Tag Name: " + name);
-            }
-
-            return 0;
-        }
-
+		/// <summary>
+		/// 获取Tag的十六进制表达
+		/// </summary>
+		/// <param name="tag"></param>
+		/// <returns></returns>
         public static string ToHexString(uint tag)
         {
             return $"({tag >> 16:X4},{tag & 0xFFFF:X4})";
