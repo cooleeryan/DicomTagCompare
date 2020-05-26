@@ -322,11 +322,7 @@ ASALocalRun/
 .idea/
 .vs
 
-config/package\.lock
-src/build/version\.json
-!config/wwwroot/bin/
-
-
-
 
 # Current project
+TagCompare/obj/
+TagCompare/bin/
