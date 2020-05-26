@@ -1,0 +1,23 @@
+﻿<Window x:Class="TagCompare.CompareResult"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TagCompare"
+        mc:Ignorable="d"
+        Title="CompareResult" Height="600" Width="1000">
+    <Grid>
+        <DataGrid Name="DgResult" AutoGenerateColumns="False" IsReadOnly="True" CanUserResizeRows="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Group Element" Binding="{Binding Path=Group_Element}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Tag Description" Binding="{Binding Path=Tag_Des}"></DataGridTextColumn>
+                <DataGridTextColumn Header="VR Left" Binding="{Binding Path=VR_Left}"></DataGridTextColumn>
+                <DataGridTextColumn Header="VR Right" Binding="{Binding Path=VR_Right}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Length Left" Binding="{Binding Path=Length_Left}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Length Right" Binding="{Binding Path=Length_Right}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Value Left" Binding="{Binding Path=Value_Left}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Value Right" Binding="{Binding Path=Value_Right}"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Window>

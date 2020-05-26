@@ -1,0 +1,17 @@
+C:\Users\ryan\source\repos\TagCompare\TagCompare\obj\Debug\CompareResult.g.cs
+C:\Users\ryan\source\repos\TagCompare\TagCompare\obj\Debug\MainWindow.g.cs
+C:\Users\ryan\source\repos\TagCompare\TagCompare\obj\Debug\App.g.cs
+C:\Users\ryan\source\repos\TagCompare\TagCompare\obj\Debug\TagCompare_MarkupCompile.cache
+C:\Users\ryan\source\repos\TagCompare\TagCompare\obj\Debug\TagCompare_MarkupCompile.lref
+C:\Users\ryan\source\repos\TagCompare\TagCompare\bin\Debug\TagCompare.exe.config
+C:\Users\ryan\source\repos\TagCompare\TagCompare\bin\Debug\TagCompare.exe
+C:\Users\ryan\source\repos\TagCompare\TagCompare\bin\Debug\TagCompare.pdb
+C:\Users\ryan\source\repos\TagCompare\TagCompare\obj\Debug\CompareResult.baml
+C:\Users\ryan\source\repos\TagCompare\TagCompare\obj\Debug\MainWindow.baml
+C:\Users\ryan\source\repos\TagCompare\TagCompare\obj\Debug\TagCompare.g.resources
+C:\Users\ryan\source\repos\TagCompare\TagCompare\obj\Debug\TagCompare.Properties.Resources.resources
+C:\Users\ryan\source\repos\TagCompare\TagCompare\obj\Debug\TagCompare.csproj.GenerateResource.cache
+C:\Users\ryan\source\repos\TagCompare\TagCompare\obj\Debug\TagCompare.csproj.CoreCompileInputs.cache
+C:\Users\ryan\source\repos\TagCompare\TagCompare\obj\Debug\TagCompare.exe
+C:\Users\ryan\source\repos\TagCompare\TagCompare\obj\Debug\TagCompare.pdb
+C:\Users\ryan\source\repos\TagCompare\TagCompare\obj\Debug\TagCompare.csprojAssemblyReference.cache

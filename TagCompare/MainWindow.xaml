@@ -1,0 +1,48 @@
+﻿<Window x:Class="TagCompare.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TagCompare"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="800" Width="1000" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="39"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <DataGrid Drop="DgLeft_Drop" LoadingRow="DgLeft_LoadingRow" Name="DgLeft" Grid.Row="1" Grid.Column="0"
+                  AutoGenerateColumns="False" IsReadOnly="True" CanUserResizeRows="False" AllowDrop="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Group Element" Binding="{Binding Path=Group_Element}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Tag Description" Binding="{Binding Path=TagDes}"></DataGridTextColumn>
+                <DataGridTextColumn Header="VR" Binding="{Binding Path=VR}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Length" Binding="{Binding Path=Length}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Value" Binding="{Binding Path=Value}"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <DataGrid Drop="DgRight_Drop" LoadingRow="DgRight_LoadingRow" Name="DgRight" Grid.Row="1" Grid.Column="1"
+                  AutoGenerateColumns="False" IsReadOnly="True" CanUserResizeRows="False" AllowDrop="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Group Element" Binding="{Binding Path=Group_Element}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Tag Description" Binding="{Binding Path=TagDes}"></DataGridTextColumn>
+                <DataGridTextColumn Header="VR" Binding="{Binding Path=VR}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Length" Binding="{Binding Path=Length}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Value" Binding="{Binding Path=Value}"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button Click="BtnOpenLeft_Click" Name="BtnOpenLeft" Content="打开Dicom文件" Grid.Row="0" Grid.Column="0" 
+                HorizontalAlignment="Left" Margin="10,10,0,7" Width="100"></Button>
+        <TextBox KeyDown="TxtLeft_KeyDown" Name="TxtLeft" Margin="115, 10, 10, 7" Grid.Row="0" Grid.Column="0"  TextWrapping="Wrap"></TextBox>
+        <Button Click="BtnOpenRight_Click" Name="BtnOpenRight" Content="打开Dicom文件" Grid.Row="0" Grid.Column="1" 
+                HorizontalAlignment="Left" Margin="52,10,0,7" Width="100"></Button>
+        <TextBox KeyDown="TxtRight_KeyDown" Name="TxtRight" Margin="157, 10, 10, 7" Grid.Row="0" Grid.Column="1" TextWrapping="Wrap"></TextBox>
+        <Button Click="BtnCompare_Click" Name="BtnCompare" Content="对比" Grid.Row="0" Grid.Column="1" 
+                HorizontalAlignment="Left" Margin="10.5,10,0,7" Width="36"></Button>
+
+    </Grid>
+</Window>
