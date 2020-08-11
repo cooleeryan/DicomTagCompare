@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Windows;
@@ -178,14 +179,60 @@ namespace TagCompare.Data
             return _dt;
         }
 
+        ///// <summary>
+        ///// (FFFE,E000)文件夹开始标签，(FFFE,E00D)和(FFFE,E0DD)是文件夹结束标签，内部是嵌套的tag，需要单独拿出来
+        ///// </summary>
+        ///// <returns></returns>
+        //private Hashtable GetRemoveIndex1()
+        //{
+        //    var dataTable = ReadTags();
+        //    var hashTable = new Hashtable(20);
+        //    var cursor = 0;
+            
+        //    //计算文件夹的开始行和结束行
+        //    int startRowNum = 0, endRowNum = 0;
+        //    for (var i = 0; i < dataTable.Rows.Count; i++)
+        //    {
+        //        var preCursor = cursor;
+        //        if (dataTable.Rows[i]["VR"].ToString().Equals("SQ")
+        //            || dataTable.Rows[i]["Group_Element"].ToString().Equals("(FFFE,E000)"))
+        //        {
+        //            cursor++;
+        //        }
+        //        else if (dataTable.Rows[i]["Group_Element"].ToString().Equals("(FFFE,E00D)")
+        //                 || dataTable.Rows[i]["Group_Element"].ToString().Equals("(FFFE,E0DD)"))
+        //        {
+        //            cursor--;
+        //        }
+
+        //        if (preCursor == 0 && cursor == 1)
+        //        {
+        //            startRowNum = i;
+        //        }
+        //        else if (preCursor == 1 && cursor == 0)
+        //        {
+        //            endRowNum = i;
+        //        }
+
+        //        if (startRowNum != 0 && endRowNum != 0)
+        //        {
+        //            hashTable.Add(startRowNum, endRowNum);
+        //            startRowNum = 0;
+        //            endRowNum = 0;
+        //        }
+        //    }
+
+        //    return hashTable;
+        //}
+
         /// <summary>
         /// (FFFE,E000)文件夹开始标签，(FFFE,E00D)和(FFFE,E0DD)是文件夹结束标签，内部是嵌套的tag，需要单独拿出来
         /// </summary>
         /// <returns></returns>
-        private Hashtable GetRemoveIndex()
+        private Dictionary<int, int> GetRemoveIndex()
         {
             var dataTable = ReadTags();
-            var hashTable = new Hashtable(20);
+            var result = new Dictionary<int, int>();
             var cursor = 0;
             
             //计算文件夹的开始行和结束行
@@ -215,13 +262,13 @@ namespace TagCompare.Data
 
                 if (startRowNum != 0 && endRowNum != 0)
                 {
-                    hashTable.Add(startRowNum, endRowNum);
+                    result.Add(startRowNum, endRowNum);
                     startRowNum = 0;
                     endRowNum = 0;
                 }
             }
 
-            return hashTable;
+            return result;
         }
 
         /// <summary>
@@ -237,7 +284,7 @@ namespace TagCompare.Data
                 arrarList.Sort();
                 arrarList.Reverse();
 
-                foreach (var item in arrarList)
+                foreach (int item in arrarList)
                 {
                     var num = int.Parse(item.ToString());
                     var num2 = int.Parse(htRemoveIndex[item].ToString());
